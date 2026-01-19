@@ -8,7 +8,7 @@ But a Neural Network is not a decision tree. It is a **Signal Chain**.
 
 ## The Guitar Pedal Analogy
 
-I’ve been playing guitar for years. If you looked at my home office right now, you wouldn't just see monitors and keyboards; you'd see a mess of patch cables and stompboxes. And if you've ever spent a Saturday afternoon debugging a hum in your pedalboard, you already understand the architecture of a brain.
+I’ve been playing guitar for years. These days I'm all-digital, but uf you looked at my home office a few years ago, you wouldn't have just seen monitors and keyboards; you'd have seen a mess of patch cables and stompboxes. And if you've ever spent a Saturday afternoon debugging a hum or static in your pedalboard, you already understand the architecture of a brain.
 
 Imagine that rig. You plug a cable into the guitar. That cable carries a raw, analog signal (the input). You don't plug that cable directly into the speaker; you plug it into a board—a messy chain of little metal boxes connected by wires.
 
