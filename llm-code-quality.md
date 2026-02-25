@@ -5,6 +5,8 @@ LLMs can write a lot of code quickly. That is not the hard part. The hard part i
 
 The practical mindset is the same one described in Esco Obong's February 13, 2026 essay: use the model as a power tool, not a magic wand. High-quality code still starts with clear problem framing, tradeoff analysis, and explicit design. The model helps you execute faster, but it does not remove the need for engineering judgment.
 
+This is also where this approach aligns with spec-driven development. The issue is not that people or models dislike documentation; the issue is that neither humans nor LLMs reliably absorb huge, generic docs when working at speed. Documentation should be designed as operational context for humans and agents, not as a knowledge dump. Being strict about process, traceability, and concise linked specs improves quality for everyone.
+
 ## The core workflow
 Quality improves when code generation is the final step, not the first step. Start with a short design conversation and force the model to propose approaches and tradeoffs before it writes any code. Convert the agreed approach into a mini-spec. Break that spec into small tasks with clear "done" criteria. Then implement one task at a time.
 
