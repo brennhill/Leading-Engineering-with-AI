@@ -11,68 +11,16 @@ Use LLMs where the work is expensive in time but cheap to verify. That means dra
 
 Use this flow every time: draft candidate changes, validate with deterministic gates, then promote with explicit human approval. If validation fails, route back to draft and iterate.
 
-## Quick Adoption Checklist
-- [ ] Define allowed AI actions (`read-only` by default, `write` only in PR workflow).
-- [ ] Define forbidden actions (direct deploys, autonomous backfills, unreviewed schema changes).
-- [ ] Require branch protection and human review for all AI-assisted changes.
-- [ ] Add mandatory gates: tests, lints, quality checks, cost checks.
-- [ ] Log prompts and generated diffs in PR context for auditability.
-- [ ] Map PII/regulated datasets and ban unsafe model access paths.
+## Pragmatic Operating Notes
+Set clear action boundaries up front. Keep AI work in a draft-to-validation-to-promotion flow, with write actions constrained to PR workflows and production changes gated by explicit human approval. The model can generate candidate SQL, transforms, and tests quickly, but correctness and safety still come from deterministic checks and review discipline.
 
-## Task Intake Checklist (Before Prompting)
-- [ ] State the business question in one sentence.
-- [ ] State the data contract (input schema, output schema, freshness SLA).
-- [ ] State acceptance criteria (correctness, latency, cost ceiling).
-- [ ] Link the exact tables/models involved.
-- [ ] Identify blast radius if wrong.
+For SQL and transform work, verify semantics, not syntax. Most failures come from wrong grain, wrong join assumptions, null behavior, timezone drift, and cost blowups that looked reasonable at generation time. Treat every generated query as a draft and validate against known-good data and production constraints before merge.
 
-## SQL/Transform Checklist
-- [ ] Verify join keys and join cardinality assumptions.
-- [ ] Verify dedup logic and idempotency assumptions.
-- [ ] Verify null handling and default behavior.
-- [ ] Verify timezone and timestamp boundaries.
-- [ ] Verify aggregation grain matches business definition.
-- [ ] Run `EXPLAIN` or equivalent and review cost profile.
-- [ ] Validate against known-good sample data.
+For pipeline changes, keep rollout behavior conservative. Backfill bounds, retry semantics, lineage impact, and rollback readiness matter more than how quickly the code was generated. Stage changes, watch quality and freshness signals, and keep on-call ownership explicit.
 
-## Pipeline Change Checklist
-- [ ] Verify retry behavior and failure semantics.
-- [ ] Verify backfill strategy and bounds.
-- [ ] Verify schema evolution behavior (additive vs breaking).
-- [ ] Verify lineage impact (upstream/downstream dependencies).
-- [ ] Verify rollback procedure before rollout.
-- [ ] Stage rollout with canary or limited scope first.
+During incidents, use LLMs for hypothesis generation, not adjudication. Pull logs, diffs, and quality signals first, then use the model to propose candidate causes and remediation options. Confirm each hypothesis with deterministic checks before acting.
 
-## Data Quality Checklist
-- [ ] Freshness checks in place.
-- [ ] Completeness/null-rate checks in place.
-- [ ] Uniqueness/primary-key checks in place.
-- [ ] Distribution/anomaly checks in place for key metrics.
-- [ ] Contract checks in place for critical fields.
-- [ ] Alert routing and on-call ownership confirmed.
-
-## Merge and Deploy Checklist
-- [ ] PR links to task, spec, and affected models/tables.
-- [ ] Generated SQL/code is reviewed by a data engineer.
-- [ ] Tests pass (unit/integration/data quality).
-- [ ] Cost impact reviewed and approved.
-- [ ] Security/policy impact reviewed.
-- [ ] Rollback steps documented in PR.
-
-## Incident Triage Checklist (AI-Assisted)
-- [ ] Freeze further automated changes.
-- [ ] Gather failing job logs, recent diffs, and data quality alerts.
-- [ ] Ask LLM for candidate root causes, not final conclusions.
-- [ ] Validate each hypothesis with deterministic checks.
-- [ ] Apply smallest safe fix first.
-- [ ] Run post-fix verification before unfreezing automation.
-
-## Practical KPI Set
-- [ ] Lead time reduction for data changes.
-- [ ] Defect escape rate (post-deploy data bugs).
-- [ ] Data quality incident frequency.
-- [ ] Cost per pipeline run / query class.
-- [ ] Percent of AI-assisted PRs requiring rollback.
+If you track impact, focus on lead time, defect escape rate, data quality incident frequency, and cost-per-run. Speed gains only matter if correctness and reliability remain stable.
 
 ## Bottom line
 Use LLMs to move faster on drafting and analysis. Keep correctness, governance, and deploy decisions under explicit human control.

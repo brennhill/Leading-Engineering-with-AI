@@ -24,13 +24,13 @@ The third principle is that AI can propose, but humans decide and own outcomes. 
 Leadership in AI is not about collecting model demos. It is about creating an environment where experimentation is fast, safety is engineered, and accountability is obvious. It is about helping people level up, because teams that can reason clearly about AI systems will outperform teams that only know how to prompt them. It is about building systems that can evolve, because the infrastructure is still early and change is guaranteed.
 
 This playbook works with the rest of the repo:
-- `eng-principles.md`: baseline engineering standards.
-- `solution-design/README.md`: system design structure.
-- `AI-operations.md`: delivery and runtime operations.
-- `data-science-management.md`: probabilistic system audit guidance.
-- `llm-code-quality.md`: how to get high-quality production code from LLM-assisted workflows.
-- `llms-for-data-engineers.md`: pragmatic do/don't guidance and checklists for data engineering with LLMs.
-- `docs/README.md`: LLM-friendly docs structure and templates for feature-level context.
+- [eng-principles.md](eng-principles.md): baseline engineering standards.
+- [solution-design/README.md](solution-design/README.md): system design structure.
+- [AI-operations.md](AI-operations.md): delivery and runtime operations.
+- [data-science-management.md](data-science-management.md): probabilistic system audit guidance.
+- [llm-code-quality.md](llm-code-quality.md): how to get high-quality production code from LLM-assisted workflows.
+- [llms-for-data-engineers.md](llms-for-data-engineers.md): pragmatic do/don't guidance and checklists for data engineering with LLMs.
+- [docs/README.md](docs/README.md): LLM-friendly docs structure and templates for feature-level context.
 
 ## Bottom line
 Move fast with AI, but only inside explicit boundaries. Speed without guardrails creates hidden risk. Guardrails without speed creates irrelevance.

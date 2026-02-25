@@ -5,8 +5,8 @@ This folder exists to make the repo easy to navigate and reason about.
 The goal is simple: every feature has one canonical doc that links to its design, code, and tests in the header so humans and coding agents can find the right context fast.
 
 ## How to use this folder
-1. Start at `docs/index.md` (create it if missing) as the table of contents.
-2. For each feature, create one file from `docs/templates/feature-context-template.md`.
+1. Start at [docs/index.md](index.md) (create it if missing) as the table of contents.
+2. For each feature, create one file from [docs/templates/feature-context-template.md](templates/feature-context-template.md).
 3. Keep the header links current whenever code paths or tests move.
 
 ## Required header fields (for feature docs)
