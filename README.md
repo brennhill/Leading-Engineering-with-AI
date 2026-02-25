@@ -1,118 +1,33 @@
 # Leading Engineering in the Time of AI
+## A Practical Leadership Playbook
 
 ## Preamble
-This repo started as a practical leadership playbook for software teams. AI changes the details, but not the need for clear standards.
+This started as a practical leadership guide before AI became central to day-to-day engineering. The job is still leadership, and the core challenge is still the same: do the simple things well, repeatedly, under pressure. As Rich Hickey argues in *Simple Made Easy*, simple and easy are not the same. Easy is quick to start. Simple is low-coupling, understandable, and maintainable under change. AI tools often feel easy on day one and become complex in production. If you are leading a team, optimize for simple.
 
-The core update is this:
-engineering leaders now need to manage probabilistic systems, autonomous behaviors, and faster change cycles while keeping human accountability.
+LLMs and AI are not magic. They are probabilistic systems that generate likely outputs from context, and that fact alone explains most of their strengths and most of their failure modes. If you understand how they work, you can reason about where they will be useful and where they will be dangerous. They can be fast, creative, and surprisingly capable, but they can also fail invisibly, confidently, and incorrectly. They can tell you everything is fine right up until it is not. There are public examples of this kind of failure, including a GitHub report where a user lost files with Gemini CLI and a separate incident where an autonomous agent deleted production data ([Gemini CLI issue](https://github.com/google-gemini/gemini-cli/issues/4586), [Replit incident post](https://twitter.com/amasad/status/1946986468586721478?ref_src=twsrc%5Etfw)).
 
-## Repo map
-- `eng-principles.md`: baseline engineering and leadership standards.
-- `SolutionDesign/README.md`: design template for system planning.
-- `DataScienceManagement.md`: audit guide for probabilistic/ML system health.
+The right posture is neither hype nor fear. Hype makes teams reckless. Fear makes teams slow and defensive. Both are bad leadership. At the same time, dismissing this shift is also a mistake. Software engineering is changing in real time: how we write code, how we design systems, how we test, and how we organize teams. The leaders who do well here will be the ones who adopt quickly with clear boundaries and explicit accountability.
 
-## The core shift in AI product design
-Designing for AI is not mainly about what your product does.
-It is about what your product enables the AI to do safely and reliably.
+## Brenn's Rule
+> **"When humans get too lazy, the AI goes crazy."**  
+> **Don't get (too) lazy.**  
+> *- Brenn Hill*
 
-For every feature, define:
-- What the AI can observe.
-- What the AI can decide.
-- What the AI can do (actions/tools).
-- What the AI is explicitly not allowed to do.
-- How humans review, override, and recover.
+## Core operating principles
+The first principle is that AI design is not mostly about what your product does; it is about what your product enables AI to do safely. For each AI feature, you should be able to explain what the model can observe, what it can decide, what it can act on, what it is forbidden to do, and where a human can review, override, or stop execution. If you cannot explain that plainly, the feature is not ready.
 
-If these are not defined, you do not have an AI feature yet. You have a demo.
+The second principle is layered guardrails. Guardrails are not one prompt instruction or one policy document. They must exist at the agent specification level, at the agent runtime/container level where tool calls are actually executed, at the connection layer where you route and audit model traffic, at the local process layer where permissions and isolation constrain blast radius, at the development workflow layer where AI cannot merge directly to protected branches, and at the organization policy layer where legal, security, vendor, and data-handling standards are defined. Assume any single layer can fail and build so the others catch it.
 
-## Guardrails are not optional
-Treat guardrails as a layered system, not a single control point.
+The third principle is that AI can propose, but humans decide and own outcomes. Use AI to improve human capability, not to replace human judgment. These tools are excellent for accelerating research, exploring alternatives, understanding unfamiliar code, drafting tests, and helping people learn faster. They are not acceptable as final authority for production risk decisions.
 
-| Layer | Example controls | Why it matters |
-| --- | --- | --- |
-| Agent spec (`agent.md`) | Goal boundaries, allowed tools, refusal rules, output format contracts | Prevents unsafe intent at the instruction layer |
-| Agent container/runtime | Tool allowlists, schema validation, retries with bounds, idempotency keys, hard timeouts | Prevents unsafe or repeated execution |
-| Connection layer (for example `LiteLLM`) | Authentication, rate limits, centralized audit logs, request/response policy checks, redaction | Gives observability and centralized policy enforcement |
-| Local process layer | Run as permission-constrained user, restricted filesystem/network access, short-lived credentials | Limits blast radius from compromise or model mistakes |
-| Development process layer | AI cannot push to `main`, AI can open PRs only, required human review, CI gates | Keeps accountability and quality in the merge path |
-| Organizational policy layer | Approved model/vendor list, data classification rules, retention rules, legal/privacy controls | Aligns day-to-day engineering with business risk |
+## What Engineering Leadership Looks Like Now
+Leadership in AI is not about collecting model demos. It is about creating an environment where experimentation is fast, safety is engineered, and accountability is obvious. It is about helping people level up, because teams that can reason clearly about AI systems will outperform teams that only know how to prompt them. It is about building systems that can evolve, because the infrastructure is still early and change is guaranteed.
 
-Assume each layer can fail. Build defense in depth.
+This playbook works with the rest of the repo:
+- `eng-principles.md`: baseline engineering standards.
+- `solution-design/README.md`: system design structure.
+- `AI-operations.md`: delivery and runtime operations.
+- `data-science-management.md`: probabilistic system audit guidance.
 
-## Human role: judgment, not autopilot
-AI is an excellent teacher, pair partner, and research accelerator.
-Use it to level up people in the loop, not to replace critical thinking.
-
-Good uses:
-- Rapid literature and standards research.
-- Drafting design alternatives with tradeoffs.
-- Explaining unfamiliar code and generating test ideas.
-- Producing first-pass runbooks and incident timelines.
-
-Bad uses:
-- Blindly accepting architectural decisions.
-- Delegating production approval decisions to the model.
-- Letting generated code bypass review standards.
-
-Team rule:
-AI can propose. Humans decide and own outcomes.
-
-## The infrastructure is early
-Current AI tooling is early-stage infrastructure.
-The closest analogy is software development before mature Git workflows and container standards.
-
-Expect rough edges:
-- Inconsistent tooling behavior.
-- Fast-moving APIs and model changes.
-- New failure modes across orchestration and context handling.
-- Vendor churn and pricing changes.
-
-Leadership implication:
-design for portability, observability, and change from day one.
-
-## What else should be included
-In addition to the four key points above, a strong AI leadership README should include:
-
-### 1) Decision rights and accountability
-- Define who is responsible for model choice, prompt/policy changes, deployment approval, and incident sign-off.
-- Use clear ownership so "the AI did it" is never accepted as root cause.
-
-### 2) Evaluation strategy
-- Require offline evals before release and online monitoring after release.
-- Track quality, safety, latency, cost, and fallback rate.
-- Version prompts, policies, and model configs like code.
-
-### 3) Reliability and incident response
-- Add circuit breakers, kill switches, and safe fallback behavior.
-- Define AI-specific incident severity, paging rules, and rollback paths.
-- Record and review near-misses, not only outages.
-
-### 4) Security and data governance
-- Map data classes to allowed models and providers.
-- Default to least privilege for tools and secrets.
-- Audit for leakage in logs, traces, prompts, and model outputs.
-
-### 5) Economics and ROI
-- Tie AI features to measurable value, not novelty.
-- Track cost-to-serve by feature and customer segment.
-- Set stop conditions for experiments that do not deliver value.
-
-### 6) Team capability growth
-- Train engineers and PMs to evaluate AI output critically.
-- Reward evidence-backed judgment, not prompt tricks.
-- Build shared playbooks so capability compounds across teams.
-
-## AI addendum to Definition of Done
-For AI-enabled features, done means all of the following are true:
-- Guardrails are implemented at all six layers above.
-- Human approval checkpoints are explicit.
-- Eval suite passes agreed thresholds.
-- Logs and audits are reviewable and privacy-safe.
-- Fallback behavior is tested.
-- Rollback and kill switch are verified.
-- Ownership for ongoing monitoring is assigned.
-
-## Practical operating principle
-Move fast with AI, but only inside explicit boundaries.
-Speed without guardrails creates hidden risk.
-Guardrails without speed creates irrelevance.
-Leadership is building both at the same time.
+## Bottom line
+Move fast with AI, but only inside explicit boundaries. Speed without guardrails creates hidden risk. Guardrails without speed creates irrelevance.
