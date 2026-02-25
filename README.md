@@ -29,6 +29,7 @@ This playbook works with the rest of the repo:
 - `AI-operations.md`: delivery and runtime operations.
 - `data-science-management.md`: probabilistic system audit guidance.
 - `llm-code-quality.md`: how to get high-quality production code from LLM-assisted workflows.
+- `llms-for-data-engineers.md`: pragmatic do/don't guidance and checklists for data engineering with LLMs.
 - `docs/README.md`: LLM-friendly docs structure and templates for feature-level context.
 
 ## Bottom line

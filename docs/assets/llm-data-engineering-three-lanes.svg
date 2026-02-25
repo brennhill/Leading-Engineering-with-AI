@@ -1,0 +1,41 @@
+<svg width="1400" height="620" viewBox="0 0 1400 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Three-Lane Model for LLM-Assisted Data Engineering</title>
+  <desc id="desc">Flow from Draft Lane to Validation Lane to Promotion Lane with feedback loop on validation failure.</desc>
+
+  <rect x="0" y="0" width="1400" height="620" fill="#f8fafc"/>
+  <text x="700" y="58" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Three-Lane Operating Model</text>
+  <text x="700" y="92" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#334155">LLM-assisted data engineering with controlled promotion</text>
+
+  <rect x="70" y="140" width="380" height="360" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+  <text x="260" y="190" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#0c4a6e">Draft Lane</text>
+  <text x="110" y="240" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- LLM proposes SQL/transforms</text>
+  <text x="110" y="280" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- LLM drafts tests/docs</text>
+  <text x="110" y="320" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- No direct deploy rights</text>
+  <text x="110" y="360" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Output is a candidate diff</text>
+
+  <rect x="510" y="140" width="380" height="360" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="700" y="190" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#7c2d12">Validation Lane</text>
+  <text x="550" y="240" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Schema and contract checks</text>
+  <text x="550" y="280" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Data quality and freshness checks</text>
+  <text x="550" y="320" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Cost/perf review (EXPLAIN, limits)</text>
+  <text x="550" y="360" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Failing checks return to Draft</text>
+
+  <rect x="950" y="140" width="380" height="360" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="1140" y="190" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#14532d">Promotion Lane</text>
+  <text x="990" y="240" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Human PR review + approval</text>
+  <text x="990" y="280" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Controlled rollout / canary</text>
+  <text x="990" y="320" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Monitors + rollback ready</text>
+  <text x="990" y="360" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#0f172a">- Named owner accountable</text>
+
+  <line x1="450" y1="320" x2="510" y2="320" stroke="#1e293b" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="890" y1="320" x2="950" y2="320" stroke="#1e293b" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <path d="M 700 515 C 700 570, 260 570, 260 520" fill="none" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="515" y="598" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#334155">Validation fail -> return to Draft, fix, and re-run checks</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1e293b"/>
+    </marker>
+  </defs>
+</svg>
